@@ -1,5 +1,8 @@
 # Comprehensive Machine Learning Full Pipeline on Heart Disease UCI Dataset
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+
 An end-to-end machine learning project that analyzes, predicts, and visualizes heart
 disease risk using the Heart Disease UCI dataset. The pipeline covers data
 preprocessing, dimensionality reduction (PCA), feature selection, supervised
@@ -45,6 +48,15 @@ After hyperparameter tuning:
 Full logs and per-class metrics are in [`results/evaluation_metrics.txt`](results/evaluation_metrics.txt).
 All generated charts are in [`results/plots/`](results/plots/).
 
+<p align="center">
+  <img src="results/plots/02_correlation_heatmap.png" width="420" alt="Correlation heatmap">
+  <img src="results/plots/07_roc_curves.png" width="420" alt="ROC curves for all models">
+</p>
+<p align="center">
+  <img src="results/plots/06_feature_importance.png" width="420" alt="Feature importance">
+  <img src="results/plots/10_baseline_vs_tuned.png" width="420" alt="Baseline vs tuned accuracy">
+</p>
+
 ## 3. Dataset
 
 [Heart Disease UCI Dataset](https://archive.ics.uci.edu/dataset/45/heart+disease)
@@ -83,8 +95,15 @@ files in VS Code — just open the folder, open a terminal, and run each script.
 streamlit run ui/app.py
 ```
 The app loads `models/final_model.pkl` and lets you enter patient data for a
-real-time prediction. See [`deployment/ngrok_setup.txt`](deployment/ngrok_setup.txt)
-for exposing it publicly via Ngrok.
+real-time prediction. For exposing it publicly via Ngrok, see the deployment
+notes below.
+
+**Ngrok deployment (quick reference):**
+```bash
+streamlit run ui/app.py        # starts the app at localhost:8501
+ngrok http 8501                 # exposes it with a public URL
+```
+`deployment/ngrok_setup.txt` (kept locally, not committed) has the full walkthrough.
 
 ## 5. File Structure
 
@@ -105,8 +124,6 @@ Heart_Disease_Project/
 │   └── scaler.pkl
 ├── ui/
 │   └── app.py
-├── deployment/
-│   └── ngrok_setup.txt
 ├── results/
 │   ├── evaluation_metrics.txt
 │   └── plots/
@@ -123,8 +140,12 @@ Heart_Disease_Project/
 ├── run_pipeline.py
 ├── requirements.txt
 ├── README.md
+├── LICENSE
 └── .gitignore
 ```
+
+> Note: a local `deployment/ngrok_setup.txt` file also exists for personal
+> reference but is excluded via `.gitignore` and not part of the pushed repo.
 
 ## 6. Tools Used
 
@@ -135,3 +156,7 @@ Python, Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, SciPy, Streamlit, Ngro
 - Small dataset (303 records) — results should be interpreted with appropriate
   caution regarding generalization.
 - This is an educational project, **not a medical diagnostic tool**.
+
+## 8. License
+
+This project is licensed under the [MIT License](LICENSE).
