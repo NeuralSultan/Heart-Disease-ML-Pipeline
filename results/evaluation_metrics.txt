@@ -1,0 +1,133 @@
+======================================================================
+1. DATA PREPROCESSING & CLEANING
+======================================================================
+Dataset shape: (303, 14)
+Missing values per column:
+age         0
+sex         0
+cp          0
+trestbps    0
+chol        0
+fbs         0
+restecg     0
+thalach     0
+exang       0
+oldpeak     0
+slope       0
+ca          0
+thal        0
+target      0
+dtype: int64
+
+Final preprocessed shape: (303, 23)
+Saved: 01_feature_distributions.png, 02_correlation_heatmap.png, 03_boxplots_by_target.png
+
+======================================================================
+2. DIMENSIONALITY REDUCTION (PCA)
+======================================================================
+Components needed for 95% variance: 14 / 22
+Saved: 04_pca_cumulative_variance.png, 05_pca_scatter.png
+
+======================================================================
+3. FEATURE SELECTION
+======================================================================
+Selected by RFE: ['sex', 'exang', 'cp_1', 'cp_2', 'cp_3', 'slope_1', 'thal_3', 'ca_1', 'ca_2', 'ca_3']
+Selected by Chi-Square: ['thalach', 'exang', 'oldpeak', 'cp_1', 'cp_2', 'slope_1', 'slope_2', 'thal_2', 'thal_3', 'ca_2']
+Final combined feature set (14 features): ['ca_1', 'ca_2', 'ca_3', 'cp_1', 'cp_2', 'cp_3', 'exang', 'oldpeak', 'sex', 'slope_1', 'slope_2', 'thal_2', 'thal_3', 'thalach']
+Saved: 06_feature_importance.png
+
+======================================================================
+4. SUPERVISED LEARNING - CLASSIFICATION MODELS
+======================================================================
+
+=== Logistic Regression ===
+Accuracy: 0.8689  Precision: 0.8820  Recall: 0.8689  F1: 0.8664
+              precision    recall  f1-score   support
+
+           0       0.95      0.75      0.84        28
+           1       0.82      0.97      0.89        33
+
+    accuracy                           0.87        61
+   macro avg       0.89      0.86      0.86        61
+weighted avg       0.88      0.87      0.87        61
+
+
+=== Decision Tree ===
+Accuracy: 0.7213  Precision: 0.7212  Recall: 0.7213  F1: 0.7195
+              precision    recall  f1-score   support
+
+           0       0.72      0.64      0.68        28
+           1       0.72      0.79      0.75        33
+
+    accuracy                           0.72        61
+   macro avg       0.72      0.72      0.72        61
+weighted avg       0.72      0.72      0.72        61
+
+
+=== Random Forest ===
+Accuracy: 0.8525  Precision: 0.8604  Recall: 0.8525  F1: 0.8504
+              precision    recall  f1-score   support
+
+           0       0.91      0.75      0.82        28
+           1       0.82      0.94      0.87        33
+
+    accuracy                           0.85        61
+   macro avg       0.86      0.84      0.85        61
+weighted avg       0.86      0.85      0.85        61
+
+
+=== SVM ===
+Accuracy: 0.8525  Precision: 0.8699  Recall: 0.8525  F1: 0.8490
+              precision    recall  f1-score   support
+
+           0       0.95      0.71      0.82        28
+           1       0.80      0.97      0.88        33
+
+    accuracy                           0.85        61
+   macro avg       0.88      0.84      0.85        61
+weighted avg       0.87      0.85      0.85        61
+
+
+Saved: 07_roc_curves.png
+
+======================================================================
+5. UNSUPERVISED LEARNING - CLUSTERING
+======================================================================
+Adjusted Rand Index (KMeans, K=2 vs actual target): 0.3012
+Saved: 08_elbow_method.png, 09_dendrogram.png
+
+======================================================================
+6. HYPERPARAMETER TUNING
+======================================================================
+Best RF params: {'max_depth': 10, 'min_samples_split': 2, 'n_estimators': 50}
+Best RF CV accuracy: 0.8145
+Best SVM params: {'C': np.float64(8.424426408004217), 'gamma': 'auto', 'kernel': 'linear'}
+
+Optimized Random Forest test accuracy: 0.8361
+              precision    recall  f1-score   support
+
+           0       0.91      0.71      0.80        28
+           1       0.79      0.94      0.86        33
+
+    accuracy                           0.84        61
+   macro avg       0.85      0.83      0.83        61
+weighted avg       0.85      0.84      0.83        61
+
+Optimized SVM test accuracy: 0.8525
+              precision    recall  f1-score   support
+
+           0       0.95      0.71      0.82        28
+           1       0.80      0.97      0.88        33
+
+    accuracy                           0.85        61
+   macro avg       0.88      0.84      0.85        61
+weighted avg       0.87      0.85      0.85        61
+
+
+Saved: 10_baseline_vs_tuned.png
+
+======================================================================
+7. MODEL EXPORT
+======================================================================
+Best model: SVM (tuned)
+Saved pipeline to: D:\Heart_Disease_Project\Heart_Disease_Project\models\final_model.pkl

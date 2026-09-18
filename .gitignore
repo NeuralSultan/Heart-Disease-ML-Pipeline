@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Environments
+venv/
+.venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/
+
+# Large / generated (kept intentionally in this repo, uncomment to exclude)
+# data/
+# models/
+# results/plots/
+
+# Deployment
+deployment/
